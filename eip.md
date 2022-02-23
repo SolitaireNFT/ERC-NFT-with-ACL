@@ -1,7 +1,7 @@
 ---
 eip: TBD
-title: Non-Fungible Token with ACL (access control list)
-description: This is a standard for separating ownership and rights of use on digital assets.
+title: Non-Fungible Token with ACL
+description: This is a standard for NFT with Access Control Lists.
 author: [Dong Shan](https://twitter.com/Necokeine), [Brian Zhou](https://twitter.com/brianzzz95)
 discussions-to: https://ethereum-magicians.org/t/eip-proposal-non-fungible-token-with-acl/8401
 status: Draft
@@ -12,11 +12,15 @@ requires: 165, 721
 ---
 
 ## Abstract
-This is a standard for separating ownership and rights of use on digital assets. It proposes an extension to ERC721 for NFTs to be utilized while preserving ownership.
+This is a standard for NFT with Access Control Lists. It proposes an extension to ERC721 and ERC1155.
+For any specific NFT, different users (groups) have different ACLs such that this NFT can be "used" in various ways by different parties during the same period.
+As a result, it separates ownership and rights of use on NFTs to unlock utility while preserving ownership.
 
 ## Motivation
-"Did I just buy a JPEG, or an NFT?"
+**"Did I just buy a JPEG, or an NFT?"**
+
 NFT skeptics, and, frankly, many NFT owners often have this question. NFTs gained explosive popularity in 2021. OpenSea, one of the major NFT marketplaces, reported $3.4 billion trading volume in August 2021. This jaw-dropping record got topped in just a few months: OpenSea hit an all-time high trading volume of $5 billion in January 2022. With this meteoric rise in user base and appreciation, there comes a tremendous growth on the supply side - As of January 2022, it is estimated that, every week, there are 20,000 to 50,000 sales of NFT projects, each of which usually consists of thousands of NFT assets.
+
 As the supply grows, NFT owners may want to grant different permissions to others like timed ownership(rental), derivative works (IP licensing), co-edit. For example, renting items in blockchain games, licensing and earning royalty from PFP derivative works, hiring builders to build properties on virtual lands.
 
 ## Specification
@@ -84,6 +88,11 @@ interface ERC165 {
 }
 ```
 
+## How ACL works
+Our design is inspired by the design of Linux ACL. Basically the ACL for each "user" is encoded in a u256 integer, where 0x0 is the lowest permission level and `MAX_UINT256` is the highest.
+<img width="749" alt="Screen Shot 2022-02-23 at 10 14 14 PM" src="https://user-images.githubusercontent.com/36017400/155336459-a152bc03-c328-48a3-8d19-e086ef2852d2.png">
+
+
 ## Rationale
 ### Multi-tenant access
 We want to enable multiple users to access or say, use the NFT with overlaps in timeline. To achieve this, the owner or delegate of the owner should be able to give other users one or multiple permissions, without transferring the ownership.
@@ -93,8 +102,6 @@ The permission list is encoded into a u256 integer. We aim to provide as much fl
 
 ### Proof of rights
 By nature, the permission or say, “right” itself should be an NFT instead of FT in most cases. We speculate this will be a common practice since by doing this, “proof of rights” NFTs are circulated on the market which is similar to how contracts and financial products are circulated in real life. The developer is able to achieve this by simply minting an NFT for rights to the licensee in the “grant” function.
-
-### Linux permission model use case figure
 
 ## Backwards Compatibility
 As mentioned in the specifications section, this standard can be fully ERC721 compatible by adding an extension function set.
