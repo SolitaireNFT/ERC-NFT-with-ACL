@@ -1,0 +1,6 @@
+.idea/
+ercx_example.iml
+node_modules/
+yarn-error.log
+yarn.lock
+tags
