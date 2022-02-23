@@ -13,6 +13,7 @@ requires: 165, 721
 
 ## Abstract
 This is a standard for NFT with Access Control Lists. It proposes an extension to ERC721 and ERC1155.
+
 For any specific NFT, different users (groups) have different ACLs such that this NFT can be "used" in various ways by different parties during the same period.
 As a result, it separates ownership and rights of use on NFTs to unlock utility while preserving ownership.
 
@@ -104,8 +105,8 @@ The permission list is encoded into a u256 integer. We aim to provide as much fl
 By nature, the permission or say, “right” itself should be an NFT instead of FT in most cases. We speculate this will be a common practice since by doing this, “proof of rights” NFTs are circulated on the market which is similar to how contracts and financial products are circulated in real life. The developer is able to achieve this by simply minting an NFT for rights to the licensee in the “grant” function.
 
 ## Backwards Compatibility
-As mentioned in the specifications section, this standard can be fully ERC721 compatible by adding an extension function set.
-After modeling the permission as some additional NFT, it is also compatible with ERC2615.
+As mentioned in the specifications section, this standard can be fully ERC721 compatible by adding an extension function set.After modeling the permission as some additional NFT, it is also compatible with ERC2615.
+
 Note that, the NFT owner is supposed to have the “root” permission. Keep in mind that giving out "ownership" as a special permission might conflict with the design of ERC721.
 
 ## Use Cases
